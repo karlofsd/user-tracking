@@ -15,6 +15,7 @@ class UserApiController extends Controller
     {
         $users = User::all();
         $data = [
+            'message' => '',
             'users' => $users
         ];
 
@@ -49,7 +50,7 @@ class UserApiController extends Controller
         $user->save();
 
 
-        return response()->json($user);
+        return response()->json(['message' => '', 'data' => $user]);
     }
 
     public function signin(Request $request)
@@ -65,7 +66,8 @@ class UserApiController extends Controller
             $token = $user->createToken('token')->plainTextToken;
             $user->token =  $token;
             return response()->json([
-                'user' => $user
+                'message' => '',
+                'data' => $user
             ]);
         } else {
             return response('Access denied', HttpResponse::HTTP_UNAUTHORIZED);

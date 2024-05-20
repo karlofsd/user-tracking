@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LocationApiController extends Controller
 {
@@ -22,7 +21,7 @@ class LocationApiController extends Controller
 
         $locations = is_null($userId) ? Location::all() : Location::where('user_id', $userId)->get();
 
-        return response()->json(['data' => $locations], 200);
+        return response()->json(['message' => '', 'data' => $locations], 200);
     }
 
 
@@ -37,7 +36,7 @@ class LocationApiController extends Controller
     public function show($id)
     {
         $location = Location::find($id);
-        return response()->json(['data' => $location]);
+        return response()->json(['message' => '', 'data' => $location]);
     }
 
 
@@ -51,7 +50,7 @@ class LocationApiController extends Controller
             "user_id" => $userId
         ], $request->all());
 
-        return response()->json(["data" => $location]);
+        return response()->json(['message' => '', "data" => $location]);
     }
 
     /**
